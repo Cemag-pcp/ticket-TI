@@ -1,0 +1,41 @@
+{% extends 'accounts/base.html' %}
+{% load widget_tweaks %}
+
+{% block heading %}
+
+Login<br />
+<span class="text-primary">Ticket TI</span>
+</h1>
+
+{% endblock heading %}
+
+{% block content %}
+
+<div class="card">
+    <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
+        {% csrf_token %}
+        <!-- Email input -->
+        <div class="form-floating mb-3">
+            <input type="email" name="username" class="form-control" id="floatingInput">
+            <label for="form3Example3">Endereço de email</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="floatingPassword">
+            <label for="floatingPassword">Digite a senha</label>
+        </div>
+
+
+        <!-- Submit button -->
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+            Sign in
+        </button>
+        <hr class="my-4" >
+
+        <small class="text-muted">Don't have an account? <a href="{% url 'register-customer' %}">Sign Ip</a></small>
+    </form>
+
+</div>
+
+{% endblock content %}

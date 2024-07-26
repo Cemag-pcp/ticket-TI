@@ -1,0 +1,38 @@
+{% extends 'accounts/base.html' %}
+{% load widget_tweaks %}
+
+{% block heading %}
+
+Cadastro<br />
+<span class="text-primary">Ticket TI</span>
+</h1>
+
+{% endblock heading %}
+
+{% block content %}
+
+<div class="card">
+    <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
+        {% csrf_token %}
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+        <div data-mdb-input-init class="form-floating mb-4">
+            {% render_field form.email class="form-control" %}
+            <label class="form-label">Endereço de email</label>
+        </div>
+        <div data-mdb-input-init class="form-floating mb-4">
+            {% render_field form.password1 class="form-control" %}
+            <label class="form-label">Digite a senha</label>
+        </div>
+        <div data-mdb-input-init class="form-floating mb-4">
+            {% render_field form.password2 class="form-control" %}
+            <label class="form-label">Confirme sua senha</label>
+        </div>
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+            Sign up
+        </button>
+        <hr class="my-4">
+        <small class="text-muted">Already have an account?<a href="{% url 'login' %}">Sign In</a></small>
+    </form>
+</div>
+
+{% endblock content %}
