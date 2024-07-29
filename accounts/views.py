@@ -12,16 +12,19 @@ def register_customer(request):
             var = form.save(commit=False)
             var.is_customer = True
             var.username = var.email
+            var.name = form.cleaned_data.get('name')  # Salvar o nome completo
+            var.sector = form.cleaned_data.get('sector')        # Salvar o setor
             var.save()
-            messages.success(request,'Conta criada. Faça o login')
+            messages.success(request, 'Conta criada. Faça o login')
             return redirect('login')
         else:
-            messages.warning(request,'Algo deu errado. Preencha os dados corretamente')
+            messages.warning(request, 'Algo deu errado. Preencha os dados corretamente')
             return redirect('register-customer')
     else:
         form = RegisterCustomerForm()
-        context = {'form':form}
-        return render(request,'accounts/register_customer.html',context)
+        context = {'form': form}
+        print(context)
+        return render(request, 'accounts/register_customer.html', context)
 
 def login_user(request):
     if request.method == 'POST':

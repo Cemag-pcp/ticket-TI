@@ -26,7 +26,6 @@ class Migration(migrations.Migration):
                 ('last_modified', models.DateTimeField(auto_now=True)),
                 ('is_resolveld', models.BooleanField(default=False)),
                 ('severity', models.CharField(choices=[('A', 'A'), ('B', 'B')], default='B', max_length=5)),
-                ('contact_mode', models.CharField(choices=[('Phone', 'Phone'), ('Email', 'Email')], max_length=20)),
                 ('is_assigned_to_engineer', models.BooleanField(default=False)),
                 ('resolution_steps', models.TextField()),
                 ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),

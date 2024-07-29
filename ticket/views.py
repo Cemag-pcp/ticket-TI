@@ -17,11 +17,11 @@ def create_ticket(request):
                 try:
                     var.ticket_id = id
                     var.save()
-                    break
+                    messages.success(request, 'Ticket enviado com sucesso. Em breve sua solicitação será resolvida')
+                    return redirect('customer-active-tickets')
+                    # break
                 except IntegrityError:
                     continue
-            messages.success(request, 'Seu ticket foi enviado. Em breve sua solicitação será resolvida')
-            return redirect('customer-tickets')
         else:
             messages.warning(request, 'Algo deu errado. Preencha o formulário corretamente')
             return redirect('create-ticket')
@@ -30,10 +30,15 @@ def create_ticket(request):
         context = {'form':form}
         return render(request, 'ticket/create_ticket.html',context)
 
-def customer_tickets(request):
-    tickets = Ticket.objects.filter(customer=request.user)
+def customer_active_tickets(request):
+    tickets = Ticket.objects.filter(customer=request.user, is_resolved=False).order_by('-created_on')
     context = {'tickets':tickets}
-    return render(request, 'ticket/customer_tickets.html',context)
+    return render(request, 'ticket/customer_active_tickets.html',context)
+
+def customer_resolved_tickets(request):
+    tickets = Ticket.objects.filter(customer=request.user, is_resolved=True).order_by('-created_on')
+    context = {'tickets':tickets}
+    return render(request, 'ticket/customer_resolved_tickets.html',context)
 
 def assign_ticket(request,ticket_id):
     ticket = Ticket.objects.get(ticket_id=ticket_id)
@@ -55,7 +60,7 @@ def assign_ticket(request,ticket_id):
 
 def ticket_details(request, ticket_id):
     ticket = Ticket.objects.get(ticket_id=ticket_id)
-    context = {'ticket',ticket}
+    context = {'ticket':ticket}
     return render(request, 'ticket/ticket_details.html',context)
 
 def ticket_queue(request):

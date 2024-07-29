@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-sm">
+    <div class="row p-5 mb-4 bg-light rounded-3">
+        <div class="col-lg-8">
+            <div class="py-5">
+                <h1 class="display-6 fw-bold">{{ticket.ticket_title}}</h1>
+                <p style="color: #494949;">{{ticket.ticket_description}}</p>
+                {% if ticket.status == 'Pending' %}
+                <span class="badge bg-warning">Pendente</span>
+                {% elif ticket.status == 'Active' %}
+                <span class="badge bg-warning">Ativo</span>
+                {% elif ticket.status == 'Resolved' %}
+                <span class="badge bg-warning">Resolvido</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="py-5">
+                        <h2 class="display-6 ">Quick info</h2>
+                        <p class="" style="color: #494949;">Aqui estão algumas informações rápidas sobre o ticket</p>
+                        <ul style="line-height: 40px;">
+                            <li><b>ID exclusivo do bilhete:</b> {{ticket.ticket_id}}</li>
+                            <li><b>Solicitante:</b> {{ticket.customer}}</li>
+                            <li><b>Funcionário Designado:</b> {{ticket.engineer}}</li>
+                            <li><b>Criado em:</b> {{ticket.created_on}}</li>
+                            <li><b>Gravidade:</b> {{ticket.severity}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if ticket.is_resolved %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Resolution Steps</h5>
+            <form action="">
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Example textare</label>
+                    <textarea class="form-control" name="" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropResolved">
+                    Launch static backdrop modal
+                </button>
+                <div class="modal fade" id="staticBackdropResolved" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropResolvedLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropResolvedLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Resolution Steps</h5>
+            <form action="">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Veja como o problema foi resolvido</label>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropNotResolved">
+                    Marcar como resolvido
+                </button>
+                <div class="modal fade" id="staticBackdropNotResolved" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropNotResolvedLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropNotResolvedLabel">Deseja confirmar que o ticket está resolvido?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -16,6 +16,14 @@ Cadastro<br />
         {% csrf_token %}
         <!-- 2 column grid layout with text inputs for the first and last names -->
         <div data-mdb-input-init class="form-floating mb-4">
+            {% render_field form.name class="form-control" %}
+            <label class="form-label">Digite seu nome e sobrenome</label>
+        </div>
+        <div data-mdb-input-init class="form-floating mb-4">
+            {% render_field form.sector class="form-control" %}
+            <label class="form-label">Digite o seu setor</label>
+        </div>
+        <div data-mdb-input-init class="form-floating mb-4">
             {% render_field form.email class="form-control" %}
             <label class="form-label">Endereço de email</label>
         </div>
